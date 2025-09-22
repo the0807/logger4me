@@ -12,12 +12,26 @@ A simple and colorful Python logging utility that provides enhanced console outp
 - **Flexible Log Levels**: Support for all standard Python logging levels (DEBUG, INFO, WARNING, ERROR, CRITICAL)
 - **Easy Integration**: Simple one-function setup for your logging needs
 
+## Installation
+
+Install logger4me using uv:
+
+```bash
+uv add logger4me
+```
+
+Install logger4me using pip:
+
+```bash
+pip install logger4me
+```
+
 ## Usage
 
 ### Basic Usage
 
 ```python
-from utils.logger import get_logger
+from logger4me import get_logger
 
 # Create a logger with default settings
 logger = get_logger()
@@ -33,7 +47,7 @@ logger.critical("This is a critical message")
 ### Advanced Configuration
 
 ```python
-from utils.logger import get_logger
+from logger4me import get_logger
 import logging
 
 # Create a logger with custom settings

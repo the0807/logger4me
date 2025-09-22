@@ -1,4 +1,4 @@
-from utils.logger import get_logger
+from logger4me import get_logger
 
 logger = get_logger(
     level = 10, 

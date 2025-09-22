@@ -9,3 +9,8 @@ wheels/
 # Virtual environments
 .venv
 logs/*.log
+
+.python-version
+pyproject.toml
+UPLOAD.md
+uv.lock
