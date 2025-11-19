@@ -15,10 +15,14 @@ LOG_COLORS = {
 class ColorFormatter(logging.Formatter):
     def format(self, record):
         original_levelname = record.levelname
-        color = LOG_COLORS.get(record.levelname, "")
+
+        padded_levelname = f"{original_levelname:<8}"
+        color = LOG_COLORS.get(original_levelname, "")
         reset = LOG_COLORS["RESET"]
-        record.levelname = f"{color}{record.levelname}{reset}"
+
+        record.levelname = f"{color}{padded_levelname}{reset}"
         formatted = super().format(record)
+
         record.levelname = original_levelname
         return formatted
 
@@ -27,18 +31,15 @@ def get_logger(level: int = logging.INFO, log_file: str = None, save_color: bool
     logger.setLevel(level)
 
     if not logger.handlers:
-        '''
-        formatter = logging.Formatter(
-            "[%(asctime)s] [%(levelname)s] - %(message)s",
-            "%Y-%m-%d %H:%M:%S"
-        )
-        '''
-        fmt = "[%(asctime)s] [%(levelname)s] - %(message)s"
         datefmt = "%Y-%m-%d %H:%M:%S"
+
+        fmt_color_str = "%(asctime)s | %(levelname)s | %(message)s"
+
+        fmt_plain_str = "%(asctime)s | %(levelname)-8s | %(message)s"
 
         # Console Handler
         console_handler = logging.StreamHandler()
-        console_handler.setFormatter(ColorFormatter(fmt, datefmt))
+        console_handler.setFormatter(ColorFormatter(fmt_color_str, datefmt))
         logger.addHandler(console_handler)
 
         if not log_file == None:
@@ -48,9 +49,9 @@ def get_logger(level: int = logging.INFO, log_file: str = None, save_color: bool
             file_handler = logging.FileHandler(log_file, mode="w", encoding="utf-8")
 
             if save_color == False:
-                file_handler.setFormatter(logging.Formatter(fmt, datefmt))
+                file_handler.setFormatter(logging.Formatter(fmt_plain_str, datefmt))
             else:
-                file_handler.setFormatter(ColorFormatter(fmt, datefmt))
+                file_handler.setFormatter(ColorFormatter(fmt_color_str, datefmt))
 
             logger.addHandler(file_handler)
 

@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='logger4me',
-    version='0.0.1',
+    version='0.0.2',
     description='A simple and colorful Python logging utility',
     author='the0807',
     author_email='the0807.eom@gmail.com',
